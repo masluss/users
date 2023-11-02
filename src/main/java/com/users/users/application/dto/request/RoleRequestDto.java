@@ -9,6 +9,7 @@ import org.springframework.validation.annotation.Validated;
 @Validated
 public class RoleRequestDto {
 
+    private Long id;
     private String name;
     private String description;
 }

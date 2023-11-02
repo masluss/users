@@ -7,6 +7,8 @@ import com.users.users.infrastructure.out.jpa.mapper.IRoleEntityMapper;
 import com.users.users.infrastructure.out.jpa.repository.IRoleEntityRepository;
 import lombok.RequiredArgsConstructor;
 
+import java.util.Optional;
+
 @RequiredArgsConstructor
 public class RoleJpaAdapter implements IRolePersistencePort {
     private final IRoleEntityMapper roleEntityMapper;
@@ -15,5 +17,11 @@ public class RoleJpaAdapter implements IRolePersistencePort {
     public Role saveRole(Role role) {
         RoleEntity roleEntity = roleEntityRepository.save(roleEntityMapper.toEntity(role));
         return roleEntityMapper.toRole(roleEntity);
+    }
+
+    @Override
+    public Optional<Role> getRoleById(Long id) {
+        Optional<RoleEntity> rolEntity = roleEntityRepository.findById(id);
+        return roleEntityMapper.toRoleOptional(rolEntity);
     }
 }

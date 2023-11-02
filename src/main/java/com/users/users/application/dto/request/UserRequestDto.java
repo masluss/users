@@ -21,5 +21,6 @@ public class UserRequestDto {
     @Min(value = 10000000, message = "El código debe ser mayor o igual a 10,000,000")
     @Max(value = 999999999999999L, message = "El código debe ser menor o igual a 999,999,999,999,999")
     private Long code;
+    private RoleRequestDto role;
 
 }
