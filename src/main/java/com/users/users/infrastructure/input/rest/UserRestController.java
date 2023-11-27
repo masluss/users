@@ -1,6 +1,7 @@
 package com.users.users.infrastructure.input.rest;
 
 import com.users.users.application.dto.request.UserRequestDto;
+import com.users.users.application.dto.response.Response;
 import com.users.users.application.dto.response.RoleResponseDto;
 import com.users.users.application.handler.IRoleHandler;
 import com.users.users.application.handler.IUserHandler;
@@ -31,13 +32,9 @@ public class UserRestController {
             @ApiResponse(responseCode = "409", description = "Object already exists", content = @Content)
     })
     @PostMapping("/decano")
-    public ResponseEntity<Void> saveUserDirector(@Valid @RequestBody UserRequestDto userRequestDto) {
+    public Response<Void> saveUserDirector(@Valid @RequestBody UserRequestDto userRequestDto) {
         Optional<RoleResponseDto> role = roleHandler.getRoleById(userRequestDto.getRole().getId());
-        if (role.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.CONFLICT);
-        }
-        userHandler.saveUser(userRequestDto);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return userHandler.saveUser(userRequestDto);
     }
     @Operation(summary = "Add a new user")
     @ApiResponses(value = {
@@ -45,13 +42,9 @@ public class UserRestController {
             @ApiResponse(responseCode = "409", description = "Object already exists", content = @Content)
     })
     @PostMapping("/director")
-    public ResponseEntity<Void> saveUserTheacher(@Valid @RequestBody UserRequestDto userRequestDto) {
+    public Response<Void> saveUserTheacher(@Valid @RequestBody UserRequestDto userRequestDto) {
         Optional<RoleResponseDto> role = roleHandler.getRoleById(userRequestDto.getRole().getId());
-        if (role.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.CONFLICT);
-        }
-        userHandler.saveUser(userRequestDto);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return userHandler.saveUser(userRequestDto);
     }
 
     @Operation(summary = "Add a new user")
@@ -62,9 +55,6 @@ public class UserRestController {
     @PostMapping("/alumno")
     public ResponseEntity<Void> saveUserStudent(@Valid @RequestBody UserRequestDto userRequestDto) {
         Optional<RoleResponseDto> role = roleHandler.getRoleById(userRequestDto.getRole().getId());
-        if (role.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.CONFLICT);
-        }
         userHandler.saveUser(userRequestDto);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
